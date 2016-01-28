@@ -387,6 +387,7 @@
 
         opts.item_class = opts.item_class || 'grid-stack-item';
         var is_nested = this.container.closest('.' + opts.item_class).size() > 0;
+        var is_no_cell_height = !opts.cell_height;
 
         this.opts = _.defaults(opts || {}, {
             width: parseInt(this.container.attr('data-gs-width')) || 12,
@@ -469,6 +470,9 @@
             this.opts.vertical_margin);
 
         this.on_resize_handler = function() {
+            if (is_no_cell_height) {
+                self.cell_height(self.cell_width());
+            }
             if (self._is_one_column_mode()) {
                 if (one_column_mode)
                     return;
