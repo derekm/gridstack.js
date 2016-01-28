@@ -415,6 +415,7 @@
             })
         });
         this.opts.is_nested = is_nested;
+        this.opts.is_no_cell_height = is_no_cell_height;
 
         this.container.addClass(this.opts._class);
 
@@ -933,7 +934,11 @@
 
     GridStack.prototype.cell_width = function() {
         var o = this.container.children('.' + this.opts.item_class).first();
-        return Math.ceil(o.outerWidth() / o.attr('data-gs-width'));
+        if (o.length) {
+            return Math.ceil(o.outerWidth() / o.attr('data-gs-width'));
+        } else {
+            return Math.ceil(this.container.outerWidth() / this.opts.width);
+        }
     };
 
     GridStack.prototype.get_cell_from_pixel = function(position) {
